@@ -1,3 +1,3 @@
 # Booky
 
-#### For Book Lovers
+#### Book Library
