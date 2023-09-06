@@ -4,4 +4,3 @@
 
 ## Technology Used
     * C#
-    * .NET 8
