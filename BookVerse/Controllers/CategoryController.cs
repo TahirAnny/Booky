@@ -31,6 +31,7 @@ namespace BookVerse.Controllers
             {
                 _context.Categories.Add(category);
                 _context.SaveChanges();
+                TempData["success"] = "Category Created successfully!";
                 return RedirectToAction("Index");
             }
             return View();
@@ -58,6 +59,7 @@ namespace BookVerse.Controllers
             {
                 _context.Categories.Update(category);
                 _context.SaveChanges();
+                TempData["success"] = "Category Edited successfully!";
                 return RedirectToAction("Index");
             }
             return View();
@@ -88,6 +90,7 @@ namespace BookVerse.Controllers
             }
             _context.Categories.Remove(category);
             _context.SaveChanges();
+            TempData["success"] = "Category Deleted successfully!";
             return RedirectToAction("Index");
         }
     }
