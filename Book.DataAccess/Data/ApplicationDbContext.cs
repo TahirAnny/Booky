@@ -1,7 +1,7 @@
-﻿using BookVerse.Models;
+﻿using Book.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookVerse.Data
+namespace BooK.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {

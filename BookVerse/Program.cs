@@ -1,4 +1,4 @@
-using BookVerse.Data;
+using BooK.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
