@@ -35,5 +35,60 @@ namespace BookVerse.Controllers
             }
             return View();
         }
+
+        public IActionResult Edit(int? categoryId)
+        {
+            if(categoryId == null || categoryId == 0)
+            {
+                return NotFound();
+            }
+            Category? category = _context.Categories.Find(categoryId);
+
+            if(category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Categories.Update(category);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        public IActionResult Delete(int? categoryId)
+        {
+            if (categoryId == null || categoryId == 0)
+            {
+                return NotFound();
+            }
+            Category? category = _context.Categories.Find(categoryId);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteData(int? categoryId)
+        {
+            Category? category = _context.Categories.Find(categoryId);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
