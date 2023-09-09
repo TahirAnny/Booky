@@ -50,9 +50,9 @@ namespace Book.DataAccessLayer.Repository.Repository
             _context.Set<T>().Update(entity);
         }
 
-        public void Save()
-        {
-            _context.SaveChanges();
-        }
+        //public void Save()
+        //{
+        //    _context.SaveChanges();
+        //}
     }
 }

@@ -22,7 +22,7 @@ namespace Book.DataAccessLayer.Repository.IRepository
 
         void Update(T entity);
 
-        void Save();
+        //void Save();
 
     }
 }

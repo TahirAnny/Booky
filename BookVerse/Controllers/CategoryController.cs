@@ -7,16 +7,16 @@ namespace BookVerse.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ICategoryRepository _category;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryController(ICategoryRepository category)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _category = category;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            List<Category> categories = _category.GetAll().ToList();
+            List<Category> categories = _unitOfWork.Category.GetAll().ToList();
             return View(categories);
         }
 
@@ -30,8 +30,8 @@ namespace BookVerse.Controllers
         {
             if (ModelState.IsValid)
             {
-                _category.Add(category);
-                _category.Save();
+                _unitOfWork.Category.Add(category);
+                _unitOfWork.Complete();
                 TempData["success"] = "Category Created successfully!";
                 return RedirectToAction("Index");
             }
@@ -44,7 +44,7 @@ namespace BookVerse.Controllers
             {
                 return NotFound();
             }
-            Category? category = _category.Get(c => c.Id == categoryId);
+            Category? category = _unitOfWork.Category.Get(c => c.Id == categoryId);
 
             if(category == null)
             {
@@ -58,8 +58,8 @@ namespace BookVerse.Controllers
         {
             if (ModelState.IsValid)
             {
-                _category.Update(category);
-                _category.Save();
+                _unitOfWork.Category.Update(category);
+                _unitOfWork.Complete();
                 TempData["success"] = "Category Edited successfully!";
                 return RedirectToAction("Index");
             }
@@ -72,7 +72,7 @@ namespace BookVerse.Controllers
             {
                 return NotFound();
             }
-            Category? category = _category.Get(c => c.Id == categoryId);
+            Category? category = _unitOfWork.Category.Get(c => c.Id == categoryId);
 
             if (category == null)
             {
@@ -84,13 +84,13 @@ namespace BookVerse.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteData(int? categoryId)
         {
-            Category? category = _category.Get(c => c.Id == categoryId);
+            Category? category = _unitOfWork.Category.Get(c => c.Id == categoryId);
             if (category == null)
             {
                 return NotFound();
             }
-            _category.Remove(category);
-            _category.Save();
+            _unitOfWork.Category.Remove(category);
+            _unitOfWork.Complete();
             TempData["success"] = "Category Deleted successfully!";
             return RedirectToAction("Index");
         }
