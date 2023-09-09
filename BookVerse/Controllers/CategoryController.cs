@@ -1,21 +1,22 @@
-﻿using Book.Models;
-using BooK.DataAccess.Data;
+﻿using Book.DataAccessLayer.Repository.IRepository;
+using Book.Models;
+using BooK.DataAccessLayer.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookVerse.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ICategoryRepository _category;
 
-        public CategoryController(ApplicationDbContext context)
+        public CategoryController(ICategoryRepository category)
         {
-            _context = context;
+            _category = category;
         }
 
         public IActionResult Index()
         {
-            List<Category> categories = _context.Categories.ToList();
+            List<Category> categories = _category.GetAll().ToList();
             return View(categories);
         }
 
@@ -29,8 +30,8 @@ namespace BookVerse.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Categories.Add(category);
-                _context.SaveChanges();
+                _category.Add(category);
+                _category.Save();
                 TempData["success"] = "Category Created successfully!";
                 return RedirectToAction("Index");
             }
@@ -43,7 +44,7 @@ namespace BookVerse.Controllers
             {
                 return NotFound();
             }
-            Category? category = _context.Categories.Find(categoryId);
+            Category? category = _category.Get(c => c.Id == categoryId);
 
             if(category == null)
             {
@@ -57,8 +58,8 @@ namespace BookVerse.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Categories.Update(category);
-                _context.SaveChanges();
+                _category.Update(category);
+                _category.Save();
                 TempData["success"] = "Category Edited successfully!";
                 return RedirectToAction("Index");
             }
@@ -71,7 +72,7 @@ namespace BookVerse.Controllers
             {
                 return NotFound();
             }
-            Category? category = _context.Categories.Find(categoryId);
+            Category? category = _category.Get(c => c.Id == categoryId);
 
             if (category == null)
             {
@@ -83,13 +84,13 @@ namespace BookVerse.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteData(int? categoryId)
         {
-            Category? category = _context.Categories.Find(categoryId);
+            Category? category = _category.Get(c => c.Id == categoryId);
             if (category == null)
             {
                 return NotFound();
             }
-            _context.Categories.Remove(category);
-            _context.SaveChanges();
+            _category.Remove(category);
+            _category.Save();
             TempData["success"] = "Category Deleted successfully!";
             return RedirectToAction("Index");
         }

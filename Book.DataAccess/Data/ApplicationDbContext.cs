@@ -1,7 +1,7 @@
 ﻿using Book.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BooK.DataAccess.Data
+namespace BooK.DataAccessLayer.Data
 {
     public class ApplicationDbContext : DbContext
     {
