@@ -3,8 +3,9 @@ using Book.Models;
 using BooK.DataAccessLayer.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookVerse.Controllers
+namespace BookVerse.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -40,13 +41,13 @@ namespace BookVerse.Controllers
 
         public IActionResult Edit(int? categoryId)
         {
-            if(categoryId == null || categoryId == 0)
+            if (categoryId == null || categoryId == 0)
             {
                 return NotFound();
             }
             Category? category = _unitOfWork.Category.Get(c => c.Id == categoryId);
 
-            if(category == null)
+            if (category == null)
             {
                 return NotFound();
             }
