@@ -1,5 +1,5 @@
-﻿using BookVerse.Data;
-using BookVerse.Models;
+﻿using Book.Models;
+using BooK.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookVerse.Controllers
