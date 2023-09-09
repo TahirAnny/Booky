@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace BooK.DataAccess.Migrations
+namespace BooK.DataAccessLayer.Migrations
 {
     /// <inheritdoc />
     public partial class AddCategoryTableToDb : Migration
