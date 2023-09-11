@@ -3,6 +3,7 @@ using BooK.DataAccessLayer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BooK.DataAccessLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230911022408_addForeignKeyCatagoryProductRelationTable")]
+    partial class addForeignKeyCatagoryProductRelationTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,10 +121,6 @@ namespace BooK.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImgUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("ListPrice")
                         .HasColumnType("float");
 
@@ -147,7 +146,6 @@ namespace BooK.DataAccessLayer.Migrations
                             CategoryId = 1,
                             Description = "Dune is a 1965 epic science fiction novel by American author Frank Herbert, originally published as two separate serials in Analog magazine. It tied with Roger Zelazny's This Immortal for the Hugo Award in 1966 and it won the inaugural Nebula Award for Best Novel. It is the first installment of the Dune Chronicles.",
                             ISBN = "9780441014057",
-                            ImgUrl = "",
                             ListPrice = 99.0,
                             Title = "Dune"
                         },
@@ -161,7 +159,6 @@ namespace BooK.DataAccessLayer.Migrations
                             CategoryId = 1,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "9781357530100",
-                            ImgUrl = "",
                             ListPrice = 40.0,
                             Title = "Dark Skies"
                         },
@@ -175,7 +172,6 @@ namespace BooK.DataAccessLayer.Migrations
                             CategoryId = 1,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "9781357530159",
-                            ImgUrl = "",
                             ListPrice = 55.0,
                             Title = "Vanish in the Sunset"
                         },
@@ -189,7 +185,6 @@ namespace BooK.DataAccessLayer.Migrations
                             CategoryId = 2,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "9781357530156",
-                            ImgUrl = "",
                             ListPrice = 70.0,
                             Title = "Cotton Candy"
                         },
@@ -203,7 +198,6 @@ namespace BooK.DataAccessLayer.Migrations
                             CategoryId = 2,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "9781357530152",
-                            ImgUrl = "",
                             ListPrice = 30.0,
                             Title = "Rock in the Ocean"
                         },
@@ -217,7 +211,6 @@ namespace BooK.DataAccessLayer.Migrations
                             CategoryId = 2,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "9781357530150",
-                            ImgUrl = "",
                             ListPrice = 25.0,
                             Title = "Leaves and Wonders"
                         });

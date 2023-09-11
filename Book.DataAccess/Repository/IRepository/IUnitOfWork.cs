@@ -10,6 +10,8 @@ namespace Book.DataAccessLayer.Repository.IRepository
     {
         ICategoryRepository Category { get; }
 
+        IProductRepository Product { get; }
+
         int Complete();
     }
 }
