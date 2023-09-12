@@ -1,7 +1,9 @@
 ﻿using Book.DataAccessLayer.Repository.IRepository;
 using Book.Models;
+using Book.Models.ViewModels;
 using BooK.DataAccessLayer.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookVerse.Areas.Admin.Controllers
 {
@@ -18,53 +20,58 @@ namespace BookVerse.Areas.Admin.Controllers
         public IActionResult Index()
         {
             List<Product> categories = _unitOfWork.Product.GetAll().ToList();
+
             return View(categories);
         }
 
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
-            return View();
+            IEnumerable<SelectListItem> categoryList = _unitOfWork.Category.GetAll().ToList().Select(x => new SelectListItem
+            {
+                Text = x.CategoryName,
+                Value = x.Id.ToString()
+            });
+
+            ProductViewModel productViewModel = new()
+            {
+                CagetoryList = categoryList,
+                Products = new Product()
+            };
+
+            if (id == null || id == 0)
+            {
+                return View(productViewModel);
+            }
+            else
+            {
+                productViewModel.Products = _unitOfWork.Product.Get(x => x.Id == id);
+                return View(productViewModel);
+            }
+
         }
 
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Upsert(ProductViewModel product, IFormFile? formFile)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(product);
+                _unitOfWork.Product.Add(product.Products);
                 _unitOfWork.Complete();
                 TempData["success"] = "Product Created successfully!";
                 return RedirectToAction("Index");
             }
-            return View();
-        }
-
-        public IActionResult Edit(int? productId)
-        {
-            if (productId == null || productId == 0)
+            else
             {
-                return NotFound();
-            }
-            Product? product = _unitOfWork.Product.Get(c => c.Id == productId);
+                IEnumerable<SelectListItem> categoryList = _unitOfWork.Category.GetAll().ToList().Select(x => new SelectListItem
+                {
+                    Text = x.CategoryName,
+                    Value = x.Id.ToString()
+                });
 
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
-        }
+                product.CagetoryList = categoryList;
 
-        [HttpPost]
-        public IActionResult Edit(Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Product.Update(product);
-                _unitOfWork.Complete();
-                TempData["success"] = "Product Edited successfully!";
-                return RedirectToAction("Index");
+                return View(product);
             }
-            return View();
         }
 
         public IActionResult Delete(int? productId)

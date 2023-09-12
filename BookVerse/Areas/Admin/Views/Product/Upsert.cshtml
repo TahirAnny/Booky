@@ -1,0 +1,85 @@
+﻿@model ProductViewModel
+
+<div class="border p-3 mt-4">
+
+    <div class="row pb-2">
+        <h2 class="text-primary text-white-50">@(Model.Products.Id != 0 ? "Üpdate" : "Create") Product</h2>
+        <hr />
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        <input asp-for="Products.Id" hidden />
+        <div class="mb-3 row p-1">
+            <label asp-for="Products.Title" class="p-0"></label>
+            <input asp-for="Products.Title" class="form-control" />
+            <span asp-validation-for="Products.Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="Products.Description" class="p-0"></label>
+            <textarea asp-for="Products.Description" class="form-control"></textarea>
+            <span asp-validation-for="Products.Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="Products.ISBN" class="p-0"></label>
+            <input asp-for="Products.ISBN" class="form-control" />
+            <span asp-validation-for="Products.ISBN" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="Products.Author" class="p-0"></label>
+            <input asp-for="Products.Author" class="form-control" />
+            <span asp-validation-for="Products.Author" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="Products.ListPrice" class="p-0"></label>
+            <input asp-for="Products.ListPrice" class="form-control" />
+            <span asp-validation-for="Products.ListPrice" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="Products.BulkPrice" class="p-0"></label>
+            <input asp-for="Products.BulkPrice" class="form-control" />
+            <span asp-validation-for="Products.BulkPrice" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="Products.BulkPriceFifty" class="p-0"></label>
+            <input asp-for="Products.BulkPriceFifty" class="form-control" />
+            <span asp-validation-for="Products.BulkPriceFifty" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="Products.BulkPriceHundred" class="p-0"></label>
+            <input asp-for="Products.BulkPriceHundred" class="form-control" />
+            <span asp-validation-for="Products.BulkPriceHundred" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="Products.ImgUrl" class="p-0"></label>
+            <input type="file" class="form-control" />
+        </div>
+
+        <div class="mb-3 row p-1">
+            <label asp-for="Products.CategoryId" class="p-0"></label>
+            <select asp-for="@Model.Products.CategoryId" asp-items="@Model.CagetoryList" class="form-select">
+                <option disabled selected>--Select Category--</option>
+            </select>
+            <span asp-validation-for="Products.CategoryId" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100px">Create</button>
+        <a asp-controller="Product" asp-action="Index" class="btn btn-secondary" style="width: 100px">
+            Cancel
+        </a>
+    </form>
+</div>
+
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
