@@ -11,10 +11,12 @@ namespace BookVerse.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(IUnitOfWork unitOfWork)
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;   
         }
 
         public IActionResult Index()
@@ -24,7 +26,7 @@ namespace BookVerse.Areas.Admin.Controllers
             return View(categories);
         }
 
-        public IActionResult Upsert(int? id)
+        public IActionResult Upsert(int? productId)
         {
             IEnumerable<SelectListItem> categoryList = _unitOfWork.Category.GetAll().ToList().Select(x => new SelectListItem
             {
@@ -38,13 +40,13 @@ namespace BookVerse.Areas.Admin.Controllers
                 Products = new Product()
             };
 
-            if (id == null || id == 0)
+            if (productId == null || productId == 0)
             {
                 return View(productViewModel);
             }
             else
             {
-                productViewModel.Products = _unitOfWork.Product.Get(x => x.Id == id);
+                productViewModel.Products = _unitOfWork.Product.Get(x => x.Id == productId);
                 return View(productViewModel);
             }
 
@@ -55,6 +57,19 @@ namespace BookVerse.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if(formFile != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(formFile.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"images\product");
+
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        formFile.CopyTo(fileStream);
+                    }
+
+                    product.Products.ImgUrl = @"\images\product\" + fileName;
+                }
                 _unitOfWork.Product.Add(product.Products);
                 _unitOfWork.Complete();
                 TempData["success"] = "Product Created successfully!";
