@@ -63,6 +63,18 @@ namespace BookVerse.Areas.Admin.Controllers
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(formFile.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"images\product");
 
+                    if (!string.IsNullOrEmpty(product.Products.ImgUrl))
+                    {
+                        //delete old image
+                        var oldImagePath = 
+                            Path.Combine(wwwRootPath, product.Products.ImgUrl.TrimStart('\\'));
+
+                        if(System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
                     using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
                     {
                         formFile.CopyTo(fileStream);
@@ -70,6 +82,16 @@ namespace BookVerse.Areas.Admin.Controllers
 
                     product.Products.ImgUrl = @"\images\product\" + fileName;
                 }
+
+                if(product.Products.Id == 0)
+                {
+                    _unitOfWork.Product.Add(product.Products);
+                }
+                else
+                {
+                    _unitOfWork.Product.Update(product.Products);
+                }
+
                 _unitOfWork.Product.Add(product.Products);
                 _unitOfWork.Complete();
                 TempData["success"] = "Product Created successfully!";
