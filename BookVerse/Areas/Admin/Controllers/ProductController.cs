@@ -21,7 +21,7 @@ namespace BookVerse.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            List<Product> categories = _unitOfWork.Product.GetAll().ToList();
+            List<Product> categories = _unitOfWork.Product.GetAll(includeProperties:"Category").ToList();
 
             return View(categories);
         }
@@ -92,9 +92,8 @@ namespace BookVerse.Areas.Admin.Controllers
                     _unitOfWork.Product.Update(product.Products);
                 }
 
-                _unitOfWork.Product.Add(product.Products);
                 _unitOfWork.Complete();
-                TempData["success"] = "Product Created successfully!";
+                TempData["success"] = "Product Saved successfully!";
                 return RedirectToAction("Index");
             }
             else

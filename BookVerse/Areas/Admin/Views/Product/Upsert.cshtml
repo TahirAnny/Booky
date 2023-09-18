@@ -3,7 +3,7 @@
 <div class="border p-3 mt-4">
 
     <div class="row pb-2">
-        <h2 class="text-primary text-white-50">@(Model.Products.Id != 0 ? "Üpdate" : "Create") Product</h2>
+        <h2 class="text-primary text-white-50">@(Model.Products.Id != 0 ? "Update" : "Create") Product</h2>
         <hr />
     </div>
 
@@ -75,7 +75,7 @@
                         <span asp-validation-for="Products.CategoryId" class="text-danger"></span>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="width: 100px">Create</button>
+                    <button type="submit" class="btn btn-primary" style="width: 100px">Save</button>
                     <a asp-controller="Product" asp-action="Index" class="btn btn-secondary" style="width: 100px">
                         Cancel
                     </a>
