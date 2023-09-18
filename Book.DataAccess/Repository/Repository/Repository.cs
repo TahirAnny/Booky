@@ -1,6 +1,7 @@
 ﻿using Book.DataAccessLayer.Repository.IRepository;
 using Book.Models;
 using BooK.DataAccessLayer.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System;
 using System.Collections.Generic;
@@ -20,14 +21,33 @@ namespace Book.DataAccessLayer.Repository.Repository
             _context = context;
         }
 
-        public T Get(Expression<Func<T, bool>> expression)
+        public T Get(Expression<Func<T, bool>> expression, string? includeProperties = null)
         {
-            return _context.Set<T>().FirstOrDefault(expression);
+            IQueryable<T> query = _context.Set<T>();
+            query = query.Where(expression);
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+
+            return query.FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(string? includeProperties = null)
         {
-            return _context.Set<T>().ToList();
+            IQueryable<T> query = _context.Set<T>();
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+
+            return query.ToList();
         }
 
         public void Add(T entity)
