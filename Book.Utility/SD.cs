@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Book.Utility
 {
-    public static class StaticDetails
+    public static class SD
     {
         public const string Role_Customer = "Customer";
 
