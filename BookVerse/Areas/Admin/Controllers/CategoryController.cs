@@ -1,11 +1,14 @@
 ﻿using Book.DataAccessLayer.Repository.IRepository;
 using Book.Models;
+using Book.Utility;
 using BooK.DataAccessLayer.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookVerse.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
