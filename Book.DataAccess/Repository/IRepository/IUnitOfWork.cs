@@ -12,6 +12,8 @@ namespace Book.DataAccessLayer.Repository.IRepository
 
         IProductRepository Product { get; }
 
+        ICompanyRepository Company { get; }
+
         int Complete();
     }
 }
