@@ -31,6 +31,12 @@ namespace BooK.DataAccessLayer.Data
                 new Category { Id = 7, CategoryName = "Poetry", DisplayOrder = 7 }
                 ) ;
 
+            modelBuilder.Entity<Company>().HasData(
+                new Company { Id = 1, Name = "Crysler", StreetAddress = "123 University Ave", City = "Windsor", State = "ON", PhoneNumber ="123456", PostalCode="N9b 2M1" },
+                new Company { Id = 2, Name = "NextStar", StreetAddress = "2242 Dougle Ave", City = "Windsor", State = "ON", PhoneNumber = "2244555", PostalCode = "N9b 2M1" },
+                new Company { Id = 3, Name = "CapsCanada", StreetAddress = "262 Lake Shore", City = "Lakeshore", State = "ON", PhoneNumber = "9867123", PostalCode = "N9b 2M1" }
+                );
+
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {

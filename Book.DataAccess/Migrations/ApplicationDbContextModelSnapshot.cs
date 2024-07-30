@@ -117,6 +117,38 @@ namespace BooK.DataAccessLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            City = "Windsor",
+                            Name = "Crysler",
+                            PhoneNumber = "123456",
+                            PostalCode = "N9b 2M1",
+                            State = "ON",
+                            StreetAddress = "123 University Ave"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            City = "Windsor",
+                            Name = "NextStar",
+                            PhoneNumber = "2244555",
+                            PostalCode = "N9b 2M1",
+                            State = "ON",
+                            StreetAddress = "2242 Dougle Ave"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            City = "Lakeshore",
+                            Name = "CapsCanada",
+                            PhoneNumber = "9867123",
+                            PostalCode = "N9b 2M1",
+                            State = "ON",
+                            StreetAddress = "262 Lake Shore"
+                        });
                 });
 
             modelBuilder.Entity("Book.Models.Product", b =>
@@ -470,6 +502,9 @@ namespace BooK.DataAccessLayer.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -482,6 +517,8 @@ namespace BooK.DataAccessLayer.Migrations
 
                     b.Property<string>("StreetAddress")
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -546,6 +583,15 @@ namespace BooK.DataAccessLayer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Book.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("Book.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Company");
                 });
 #pragma warning restore 612, 618
         }

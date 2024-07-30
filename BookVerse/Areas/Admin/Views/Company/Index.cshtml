@@ -1,0 +1,60 @@
+﻿@model List<Company>
+
+<div class="container">
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary text-white-50">Company List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-primary" asp-controller="Company" asp-action="Upsert">
+                <i class="bi bi-plus-circle"></i>
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Address</td>
+                <td>City</td>
+                <td>State</td>
+                <td>Phone Number</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data in Model)
+            {
+                <tr>
+                    <td>
+                        @data.Name
+                    </td>
+                    <td>
+                        @data.StreetAddress
+                    </td>
+                    <td>
+                        @data.City
+                    </td>
+                    <td>
+                        @data.State
+                    </td>
+                    <td>
+                        @data.PhoneNumber
+                    </td>
+                    <td>
+                        <div>
+                            <a class="btn btn-primary mx-2" asp-controller="Company" asp-action="Upsert" asp-route-CompanyId="@data.Id">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a class="btn btn-danger mx-2" asp-controller="Company" asp-action="Delete" asp-route-CompanyId="@data.Id">
+                                <i class="bi bi-trash3-fill"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
