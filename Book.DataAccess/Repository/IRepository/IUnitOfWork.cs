@@ -19,6 +19,10 @@ namespace Book.DataAccessLayer.Repository.IRepository
 
         IApplicationUserRepository ApplicationUser { get; }
 
+        IOrderDetailRepository OrderDetail { get; }
+
+        IOrderHeaderRepository OrderHeader { get; }
+
         int Complete();
     }
 }
