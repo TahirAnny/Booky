@@ -17,6 +17,8 @@ namespace Book.DataAccessLayer.Repository.IRepository
 
         IShoppingCartRepository ShoppingCart { get; }
 
+        IApplicationUserRepository ApplicationUser { get; }
+
         int Complete();
     }
 }
