@@ -18,6 +18,7 @@ namespace Book.DataAccessLayer.Repository.Repository
             Category = new CategoryRepository(_context);
             Product = new ProductRepository(_context);
             Company = new CompanyRepository(_context);
+            ShoppingCart = new ShoppingCartRepository(_context);
         }
 
         public ICategoryRepository Category { get; private set; }
@@ -25,6 +26,8 @@ namespace Book.DataAccessLayer.Repository.Repository
         public IProductRepository Product { get; private set; } 
 
         public ICompanyRepository Company { get; private set; } 
+
+        public IShoppingCartRepository ShoppingCart { get; private set; } 
 
         public int Complete()
         {
