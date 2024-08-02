@@ -10,7 +10,7 @@ namespace Book.Models.ViewModels
 {
     public class ShoppingCartViewModel
     {
-        public Double OrderTotal { get; set; }
+        public OrderHeader OrderHeader { get; set; }
 
         public IEnumerable<ShoppingCart> ShoppingCartList { get; set; }
     }

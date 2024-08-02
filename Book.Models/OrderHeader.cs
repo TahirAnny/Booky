@@ -41,6 +41,8 @@ namespace Book.Models
 
         public string? PaymentIntentId { get; set; }
 
+        public string? SessionId { get; set; }
+
         public string TransactionId { get; set; }
 
         [Required]
