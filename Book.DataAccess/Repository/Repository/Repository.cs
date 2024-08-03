@@ -9,6 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Book.DataAccessLayer.Repository.Repository
 {
@@ -21,9 +22,18 @@ namespace Book.DataAccessLayer.Repository.Repository
             _context = context;
         }
 
-        public T Get(Expression<Func<T, bool>> expression, string? includeProperties = null)
+        public T Get(Expression<Func<T, bool>> expression, string? includeProperties = null, bool tracked = false)
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query;
+            if (tracked)
+            {
+                query = _context.Set<T>();
+            }
+            else
+            {
+                query = _context.Set<T>().AsNoTracking();
+            }
+
             query = query.Where(expression);
             if (!string.IsNullOrEmpty(includeProperties))
             {
@@ -32,13 +42,16 @@ namespace Book.DataAccessLayer.Repository.Repository
                     query = query.Include(includeProp);
                 }
             }
-
             return query.FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll(string? includeProperties = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? expression = null, string? includeProperties = null)
         {
             IQueryable<T> query = _context.Set<T>();
+            if(expression != null)
+            {
+                query = query.Where(expression);
+            }
             if (!string.IsNullOrEmpty(includeProperties))
             {
                 foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
