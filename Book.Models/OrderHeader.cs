@@ -27,13 +27,13 @@ namespace Book.Models
         [Required]
         public Double OrderTotal { get; set; }
 
-        public string TrackingNumber { get; set; }
+        public string? TrackingNumber { get; set; }
 
-        public string Carrier { get; set; }
+        public string? Carrier { get; set; }
 
-        public string OrderStatus { get; set; }
+        public string? OrderStatus { get; set; }
 
-        public string PaymentStatus { get; set; }
+        public string? PaymentStatus { get; set; }
 
         public DateTime PaymentDate { get; set; }
 
@@ -43,7 +43,7 @@ namespace Book.Models
 
         public string? SessionId { get; set; }
 
-        public string TransactionId { get; set; }
+        public string? TransactionId { get; set; }
 
         [Required]
         public string PhoneNumber { get; set; }
