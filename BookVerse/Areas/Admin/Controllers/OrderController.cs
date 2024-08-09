@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace BookVerse.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
