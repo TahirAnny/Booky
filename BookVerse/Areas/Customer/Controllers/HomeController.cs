@@ -61,8 +61,8 @@ namespace BookVerse.Areas.Customer.Controllers
                 //add cart record
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
                 _unitOfWork.Complete();
-                //HttpContext.Session.SetInt32(SD.SessionCart,
-                //_unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId).Count());
+                var countItem = _unitOfWork.ShoppingCart.GetAll().Where(u => u.ApplicationUserId == userId).Count();
+                HttpContext.Session.SetInt32(SD.SessionCart, countItem);
             }
 
             TempData["success"] = "Cart updated successfully";
