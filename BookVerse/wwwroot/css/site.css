@@ -32,3 +32,10 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.book-image {
+    width: 275px; /* Fixed width */
+    height: 400px; /* Fixed height */
+    object-fit: cover; /* Maintain aspect ratio and fill the box */
+    border-radius: 5px; /*Optional for styling */
+}
